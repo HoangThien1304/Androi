@@ -1,81 +1,124 @@
-# Ứng Dụng Chấm Công Nhân Viên — Frontend (Flutter)
+# Hệ thống Chấm công Nhân viên
 
-Dự án ứng dụng di động Flutter (hỗ trợ nền tảng Android và Windows Desktop) dành cho hệ thống **Chấm công nhân viên**, kết nối trực tiếp với Web API backend.
+Dự án gồm hai thành phần độc lập:
 
----
+- **Frontend:** Ứng dụng Flutter hỗ trợ Android và Windows Desktop.
+- **Backend:** REST API xây dựng bằng FastAPI, Python và SQL Server.
 
-## 📌 Công Nghệ Sử Dụng
-- **Framework**: Flutter 3.x (Dart SDK ^3.5.0)
-- **Quản lý State**: `Provider`
-- **Networking**: `http`
-- **Lưu trữ cục bộ**: `shared_preferences`
-- **Xác thực sinh trắc học**: `local_auth`
-- **Quét mã & Nhận diện**: `mobile_scanner`, `google_mlkit_text_recognition`, `google_mlkit_face_detection`, `google_mlkit_translation`
-- **Nền tảng hỗ trợ**: Android (tối thiểu API 21), Windows Desktop
+## Công nghệ sử dụng
 
----
+### Frontend
+- Flutter và Dart.
+- Provider để quản lý trạng thái.
+- HTTP để gọi API.
+- Shared Preferences để lưu trữ cục bộ.
+- Các thư viện quét mã, nhận diện khuôn mặt và xác thực sinh trắc học theo cấu hình dự án.
 
-## 📁 Cấu Trúc Thư Mục Nhánh `frontend`
-```text
-├── android/                 # Mã nguồn và cấu hình native Android
-├── lib/                     # Mã nguồn chính Flutter
-│   ├── main.dart            # Điểm khởi chạy ứng dụng (main entry point)
-│   ├── screens/             # Giao diện màn hình (Login, OTP, Check-in, Admin, Scan, Translate...)
-│   └── services/            # Xử lý logic và API client (AppState Provider)
-├── test/                    # Kiểm thử đơn vị (widget test)
-├── windows/                 # Mã nguồn runner Windows desktop
-├── .env.example             # File cấu hình URL API mẫu
-├── .gitignore               # Loại trừ file rác, cache và file bí mật
-├── analysis_options.yaml    # Cấu hình linter Dart
-├── pubspec.yaml             # Khai báo thư viện phụ thuộc
-└── pubspec.lock             # Khóa phiên bản dependencies
-```
+### Backend
+- Python 3.10+.
+- FastAPI và Uvicorn.
+- Microsoft SQL Server.
+- SQLAlchemy và PyODBC.
+- JWT, bcrypt và xác thực OTP qua email theo cấu hình dự án.
 
----
+## Cấu trúc repository
 
-## 🛠️ Hướng Dẫn Cài Đặt & Chạy Ứng Dụng
+Repository có hai nhánh:
 
-### 1. Yêu Cầu Môi Trường
-- [Flutter SDK](https://docs.flutter.dev/get-started/install) (Khuyến nghị version >= 3.24.0)
-- Android Studio / Android SDK (đã cài Android Virtual Device - AVD hoặc bật chế độ USB Debugging trên điện thoại)
-- Visual Studio (nếu muốn build & chạy nền tảng Windows Desktop)
+| Nhánh | Nội dung |
+|---|---|
+| `frontend` | Mã nguồn ứng dụng Flutter |
+| `backend` | Mã nguồn API FastAPI |
 
-### 2. Cài Đặt Gói Phụ Thuộc
-Tại thư mục gốc của dự án, mở terminal và chạy:
+## Hướng dẫn chạy Frontend
+
+Yêu cầu: Flutter SDK và Android SDK; cần Visual Studio với workload C++ phù hợp nếu chạy ứng dụng Windows.
+
+Mở terminal tại thư mục Frontend và chạy:
+
 ```powershell
 flutter pub get
 ```
 
-### 3. Cấu Hình Địa Chỉ API
-Tạo file `.env` từ file mẫu:
+Cấu hình URL Backend theo hướng dẫn trong `.env.example` hoặc README của nhánh Frontend.
+
+Để chạy ứng dụng:
+
 ```powershell
-Copy-Item .env.example .env
+flutter run
 ```
-Nội dung file `.env`:
-- **Android Emulator**: Sử dụng địa chỉ loopback của máy chủ giả lập:
-  ```env
-  BASE_URL=http://10.0.2.2:8000
-  ```
-- **Thiết bị thật (Android qua Wi-Fi)**: Sử dụng IP mạng LAN của máy tính chạy backend:
-  ```env
-  BASE_URL=http://192.168.1.xxx:8000
-  ```
 
-### 4. Khởi Chạy Ứng Dụng
-- **Chạy trên thiết bị mặc định (hoặc Emulator đang mở)**:
-  ```powershell
-  flutter run
-  ```
-- **Chỉ định chạy với biến môi trường API**:
-  ```powershell
-  flutter run --dart-define=API_BASE_URL=http://10.0.2.2:8000
-  ```
-- **Chạy trên Windows Desktop**:
-  ```powershell
-  flutter run -d windows
-  ```
+Để chạy trên Windows Desktop:
 
-### 5. Kiểm Thử (Unit Test)
+```powershell
+flutter run -d windows
+```
+
+Để chạy kiểm thử:
+
 ```powershell
 flutter test
 ```
+
+## Hướng dẫn chạy Backend
+
+Yêu cầu: Python, Microsoft SQL Server và ODBC Driver tương thích.
+
+Tạo môi trường ảo:
+
+```powershell
+py -m venv .venv
+.venv\Scripts\Activate.ps1
+pip install -r requirements.txt
+```
+
+Tạo file cấu hình môi trường từ file mẫu:
+
+```powershell
+Copy-Item .env.example .env
+```
+
+Cập nhật các biến cấu hình trong `.env` theo môi trường thực tế. Không commit file `.env` lên GitHub.
+
+Khởi tạo cơ sở dữ liệu và dữ liệu demo theo hướng dẫn của dự án. Chỉ chạy script khởi tạo sau khi đã kiểm tra ảnh hưởng của nó đối với cơ sở dữ liệu.
+
+Khởi động API:
+
+```powershell
+uvicorn app.main:app --reload --host 127.0.0.1 --port 8000
+```
+
+Tài liệu API khi chạy cục bộ:
+
+- Swagger UI: http://127.0.0.1:8000/docs
+- ReDoc: http://127.0.0.1:8000/redoc
+
+Các địa chỉ trên chỉ truy cập được từ máy có Backend đang chạy, trừ khi bạn cấu hình triển khai công khai.
+
+## Chức năng chính
+
+- Đăng nhập và xác thực OTP.
+- Quản lý phiên đăng nhập bằng JWT.
+- Chấm công vào ca và ra ca.
+- Xem lịch sử chấm công.
+- Quản lý nhân viên, phòng ban và ca làm việc.
+- Phân quyền người dùng.
+- Kết nối Frontend với Backend thông qua API.
+
+Danh sách chức năng và endpoint cần được đối chiếu với mã nguồn thực tế trước khi nghiệm thu.
+
+## Cấu hình và bảo mật
+
+- `.env.example` chỉ chứa tên biến và giá trị minh họa không nhạy cảm.
+- `.env` không được commit lên GitHub.
+- Không lưu mật khẩu thật, token hoặc thông tin kết nối cơ sở dữ liệu trong tài liệu công khai.
+- Tài khoản demo phải được khởi tạo riêng cho môi trường phát triển và sử dụng mật khẩu demo phù hợp.
+- Không sử dụng dữ liệu demo trên hệ thống thật nếu chưa được kiểm tra.
+
+## Tài liệu bổ sung
+
+- `FUNCTIONS.txt`: mô tả chức năng của hệ thống.
+- `DEMO_ACCOUNTS.txt`: hướng dẫn tài khoản demo nếu được cung cấp an toàn.
+- `requirements.txt`: danh sách thư viện Backend.
+- `pubspec.yaml`: cấu hình dependencies của Flutter.
+
