@@ -1,30 +1,92 @@
-# Python Virtual Environments
+
+# Environment variables and secrets
+.env
+.env.*
+!.env.example
+*.env
+!*.env.example
+
+# Python virtual environments
 .venv/
-env/
 venv/
+env/
 ENV/
 env.bak/
 venv.bak/
 
-# Byte-compiled / optimized / DLL files
+# Python cache and compiled files
 __pycache__/
 *.py[cod]
 *$py.class
-
-# Environment variables & secrets
-.env
-*.env
-!*.env.example
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
 
 # Logs and local databases
 *.log
 *.sqlite3
 *.db
 
-# IDEs & OS files
+# IDEs and editors
 .idea/
 .vscode/
 *.swp
 *.swo
+*.swn
+*.iml
+*.ipr
+*.iws
+.history
+.atom/
+
+# Operating system files
 .DS_Store
 Thumbs.db
+Desktop.ini
+
+# Flutter, Dart and Pub
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.pub-cache/
+.pub/
+/build/
+/coverage/
+**/doc/api/
+**/ios/Flutter/.last_build_id
+.widget_preview/
+
+# Android build and local files
+android/.gradle/
+android/.kotlin/
+android/local.properties
+android/captures/
+android/GeneratedPluginRegistrant.java
+android/.cxx/
+android/key.properties
+android/**/*.keystore
+android/**/*.jks
+/android/app/debug
+/android/app/profile
+/android/app/release
+
+# Windows Flutter build and cache
+windows/flutter/ephemeral/
+windows/x64/
+windows/x86/
+windows/*.suo
+windows/*.user
+windows/*.userosscache
+windows/*.sln.docstates
+
+# Flutter symbolication and obfuscation
+app.*.symbols
+app.*.map.json
+
+# Other generated files
+.build/
+.buildlog/
+migrate_working_dir/
+.svn/
+.swiftpm/
+*.class
