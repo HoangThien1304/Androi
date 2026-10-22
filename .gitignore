@@ -1,0 +1,62 @@
+# Miscellaneous
+*.class
+*.log
+*.pyc
+*.swp
+.DS_Store
+.atom/
+.build/
+.buildlog/
+.history
+.svn/
+.swiftpm/
+migrate_working_dir/
+
+# Environment and sensitive secrets
+.env
+*.env
+!*.env.example
+
+# IntelliJ / Android Studio
+*.iml
+*.ipr
+*.iws
+.idea/
+
+# Flutter / Dart / Pub related
+**/doc/api/
+**/ios/Flutter/.last_build_id
+.dart_tool/
+.flutter-plugins-dependencies
+.pub-cache/
+.pub/
+/build/
+/coverage/
+
+# Android build and local files
+android/.gradle/
+android/.kotlin/
+android/local.properties
+android/captures/
+android/GeneratedPluginRegistrant.java
+android/.cxx/
+android/key.properties
+android/**/*.keystore
+android/**/*.jks
+/android/app/debug
+/android/app/profile
+/android/app/release
+
+# Windows desktop build and cache
+windows/flutter/ephemeral/
+windows/x64/
+windows/x86/
+windows/*.suo
+windows/*.user
+windows/*.userosscache
+windows/*.sln.docstates
+
+# Symbolication and obfuscation
+app.*.symbols
+app.*.map.json
+.widget_preview/
